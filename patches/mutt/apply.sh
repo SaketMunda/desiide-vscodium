@@ -9,8 +9,9 @@ MUTT_PATCHES="../patches/mutt"
 jsonTmp=$( jq -s '.[0] * .[1]' product.json "${MUTT_PATCHES}/product.json" )
 echo "${jsonTmp}" > product.json && unset jsonTmp
 
-# 2. App icons (generated from icons/mutt-icon.svg by icons/generate.sh).
+# 2. App icons and editor watermark (generated from icons/ by icons/generate.sh).
 cp -R "${MUTT_PATCHES}/resources/." resources/
+cp -R "${MUTT_PATCHES}/src/." src/
 
 # 3. Source patches, in name order.
 for file in "${MUTT_PATCHES}"/*.patch; do

@@ -9,6 +9,7 @@ working directory set to the upstream `vscode/` checkout.
 | `apply.sh` | Hook body: merges `product.json`, copies `resources/`, applies `*.patch` in order |
 | `product.json` | Branding overlay merged over VSCodium's product.json: name, `applicationName` `mutt`, data folders `.mutt-ide`/`.mutt-ide-server`, `urlProtocol` `mutt`, bundle IDs, fresh Windows GUIDs, issue/docs links |
 | `resources/` | App icons (macOS `.icns`, Linux, server/web). Generated; don't edit by hand |
+| `src/` | File overlay on upstream `src/`: the editor watermark (letterpress) SVGs and the workbench product icon (`code-icon.svg`). Generated |
 | `icons/mutt-icon.svg` | Icon source (placeholder until open decision #3). `icons/generate.sh` regenerates `resources/` (macOS) |
 | `01-default-theme.patch` | Default color theme: Mutt Dark / Mutt Light |
 
