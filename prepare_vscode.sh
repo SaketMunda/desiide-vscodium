@@ -180,6 +180,11 @@ for file in ../patches/user/*.patch; do
     apply_patch "${file}"
   fi
 done
+
+# Mutt: branding + patches from patches/mutt/, applied after VSCodium's own (see its README.md)
+if [[ -f ../patches/mutt/apply.sh ]]; then
+  . ../patches/mutt/apply.sh
+fi
 # }}}
 
 set -x
