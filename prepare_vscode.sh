@@ -181,9 +181,9 @@ for file in ../patches/user/*.patch; do
   fi
 done
 
-# Mutt: branding + patches from patches/mutt/, applied after VSCodium's own (see its README.md)
-if [[ -f ../patches/mutt/apply.sh ]]; then
-  . ../patches/mutt/apply.sh
+# Desiide: branding + patches from patches/desiide/, applied after VSCodium's own (see its README.md)
+if [[ -f ../patches/desiide/apply.sh ]]; then
+  . ../patches/desiide/apply.sh
 fi
 # }}}
 

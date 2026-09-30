@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Regenerates the Mutt app icons in ../resources/ from mutt-icon.svg.
+# Regenerates the Desiide app icons in ../resources/ from desiide-icon.svg.
 # macOS only (qlmanage renders the SVG, sips resizes, iconutil builds the .icns). The outputs are
 # committed, so this only needs re-running when the SVG changes.
 set -euo pipefail
@@ -9,8 +9,8 @@ OUT=../resources
 TMP=$( mktemp -d )
 trap 'rm -rf "${TMP}"' EXIT
 
-qlmanage -t -s 1024 -o "${TMP}" mutt-icon.svg > /dev/null
-SRC="${TMP}/mutt-icon.svg.png"
+qlmanage -t -s 1024 -o "${TMP}" desiide-icon.svg > /dev/null
+SRC="${TMP}/desiide-icon.svg.png"
 
 png() { sips -z "$1" "$1" "${SRC}" --out "$2" > /dev/null; }
 
@@ -22,7 +22,7 @@ done
 iconutil -c icns "${TMP}/code.iconset" -o "${OUT}/darwin/code.icns"
 
 png 512 "${OUT}/linux/code.png"
-cp mutt-icon.svg "${OUT}/linux/code.svg"
+cp desiide-icon.svg "${OUT}/linux/code.svg"
 png 192 "${OUT}/server/code-192.png"
 png 512 "${OUT}/server/code-512.png"
 png 32 "${TMP}/favicon.png"
@@ -51,9 +51,9 @@ letterpress letterpress-hcLight.svg '#B2B2B2' 1
 # Product icon used in the workbench (Welcome tab, About): the app icon cropped to its squircle.
 mkdir -p ../src/vs/workbench/browser/media
 sed -e 's|viewBox="0 0 1024 1024"|viewBox="100 100 824 824"|' -e 's|width="1024" height="1024"|width="16" height="16"|' \
-  mutt-icon.svg > ../src/vs/workbench/browser/media/code-icon.svg
+  desiide-icon.svg > ../src/vs/workbench/browser/media/code-icon.svg
 
-# Marketplace / Open VSX icon for the mutt-ai extension.
-png 128 ../../../../extensions/mutt-ai/media/icon.png
+# Marketplace / Open VSX icon for the desiide-ai extension.
+png 128 ../../../../extensions/desiide-ai/media/icon.png
 
 echo "icons written to $( cd "${OUT}" && pwd )"

@@ -1,10 +1,10 @@
-Mutt: default color theme
-Purpose: make Mutt Dark / Mutt Light (contributed by mutt-ai) the default color themes, so the app
+Desiide: default color theme
+Purpose: make Desiide Dark / Desiide Light (contributed by desiide-ai) the default color themes, so the app
   has its own visual identity out of the box. Only the setting *defaults* change: upstream's
   ThemeSettingDefaults (the fallback when a theme is missing) is untouched, so a build without
-  mutt-ai falls back to the stock themes instead of an unstyled one.
+  desiide-ai falls back to the stock themes instead of an unstyled one.
 Why not the extension API: an extension can't change another setting's default without also
-  forcing it on every stock VS Code user of mutt-ai (Alpha), which we don't want.
+  forcing it on every stock VS Code user of desiide-ai (Alpha), which we don't want.
 Upstream files: src/vs/workbench/services/themes/common/themeConfiguration.ts
 
 diff --git a/src/vs/workbench/services/themes/common/themeConfiguration.ts b/src/vs/workbench/services/themes/common/themeConfiguration.ts
@@ -15,16 +15,16 @@ index 98c5d5b6..bf094a17 100644
  
  export const COLOR_THEME_CONFIGURATION_SETTINGS_TAG = 'colorThemeConfiguration';
  
-+// Mutt: default to the Mutt themes (contributed by mutt-ai). ThemeSettingDefaults stays upstream's,
-+// so a build without mutt-ai falls back to the stock themes.
-+const MUTT_COLOR_THEME_DARK = 'Mutt Dark';
-+const MUTT_COLOR_THEME_LIGHT = 'Mutt Light';
++// Desiide: default to the Desiide themes (contributed by desiide-ai). ThemeSettingDefaults stays upstream's,
++// so a build without desiide-ai falls back to the stock themes.
++const DESIIDE_COLOR_THEME_DARK = 'Desiide Dark';
++const DESIIDE_COLOR_THEME_LIGHT = 'Desiide Light';
 +
  const colorThemeSettingSchema: IConfigurationPropertySchema = {
  	type: 'string',
  	markdownDescription: nls.localize({ key: 'colorTheme', comment: ['{0} will become a link to another setting.'] }, "Specifies the color theme used in the workbench when {0} is not enabled.", formatSettingAsLink(ThemeSettings.DETECT_COLOR_SCHEME)),
 -	default: isWeb ? ThemeSettingDefaults.COLOR_THEME_LIGHT : ThemeSettingDefaults.COLOR_THEME_DARK,
-+	default: isWeb ? MUTT_COLOR_THEME_LIGHT : MUTT_COLOR_THEME_DARK,
++	default: isWeb ? DESIIDE_COLOR_THEME_LIGHT : DESIIDE_COLOR_THEME_DARK,
  	tags: [COLOR_THEME_CONFIGURATION_SETTINGS_TAG],
  	enum: colorThemeSettingEnum,
  	enumDescriptions: colorThemeSettingEnumDescriptions,
@@ -33,7 +33,7 @@ index 98c5d5b6..bf094a17 100644
  	type: 'string', //
  	markdownDescription: nls.localize({ key: 'preferredDarkColorTheme', comment: ['{0} will become a link to another setting.'] }, 'Specifies the color theme when system color mode is dark and {0} is enabled.', formatSettingAsLink(ThemeSettings.DETECT_COLOR_SCHEME)),
 -	default: ThemeSettingDefaults.COLOR_THEME_DARK,
-+	default: MUTT_COLOR_THEME_DARK,
++	default: DESIIDE_COLOR_THEME_DARK,
  	tags: [COLOR_THEME_CONFIGURATION_SETTINGS_TAG],
  	enum: colorThemeSettingEnum,
  	enumDescriptions: colorThemeSettingEnumDescriptions,
@@ -42,7 +42,7 @@ index 98c5d5b6..bf094a17 100644
  	type: 'string',
  	markdownDescription: nls.localize({ key: 'preferredLightColorTheme', comment: ['{0} will become a link to another setting.'] }, 'Specifies the color theme when system color mode is light and {0} is enabled.', formatSettingAsLink(ThemeSettings.DETECT_COLOR_SCHEME)),
 -	default: ThemeSettingDefaults.COLOR_THEME_LIGHT,
-+	default: MUTT_COLOR_THEME_LIGHT,
++	default: DESIIDE_COLOR_THEME_LIGHT,
  	tags: [COLOR_THEME_CONFIGURATION_SETTINGS_TAG],
  	enum: colorThemeSettingEnum,
  	enumDescriptions: colorThemeSettingEnumDescriptions,
