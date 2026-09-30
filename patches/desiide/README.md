@@ -12,7 +12,7 @@ working directory set to the upstream `vscode/` checkout.
 | `src/` | File overlay on upstream `src/`: the editor watermark (letterpress) SVGs and the workbench product icon (`code-icon.svg`). Generated |
 | `icons/desiide-icon.svg` | Icon source (placeholder until open decision #3). `icons/generate.sh` regenerates `resources/` (macOS) |
 | `01-default-theme.patch` | Default color theme: Desiide Dark / Desiide Light |
-| `vscodium-version` | The VSCodium release this fork is based on (becomes the app version). Bump it with every upstream sync |
+| `base-version` | The VSCodium release this fork is based on (becomes the app version). Bump it with every upstream sync |
 | `02-default-layout.patch` | The built-in `desiide-ai` container opens in the secondary side bar, which is visible by default (empty windows too) |
 | `extensions/desiide-app/` | App-only built-in extension: the Cmd/Ctrl+L keybinding. No code |
 
