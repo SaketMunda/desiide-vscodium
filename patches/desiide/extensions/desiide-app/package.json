@@ -1,0 +1,23 @@
+{
+  "name": "desiide-app",
+  "displayName": "Desiide App Keybindings",
+  "description": "Keybindings of the Desiide desktop app. Built in; stock VS Code never gets these.",
+  "version": "1.0.0",
+  "publisher": "desiide",
+  "license": "MIT",
+  "engines": {
+    "vscode": "*"
+  },
+  "categories": [
+    "Other"
+  ],
+  "contributes": {
+    "keybindings": [
+      {
+        "command": "desiide.focus",
+        "key": "ctrl+l",
+        "mac": "cmd+l"
+      }
+    ]
+  }
+}

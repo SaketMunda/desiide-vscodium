@@ -6,12 +6,15 @@ working directory set to the upstream `vscode/` checkout.
 
 | File | What it does |
 |---|---|
-| `apply.sh` | Hook body: merges `product.json`, copies `resources/`, applies `*.patch` in order |
+| `apply.sh` | Hook body: merges `product.json`, copies `resources/` and `src/`, adds the built-in extensions (`desiide-ai` from its `.vsix`, `desiide-app`), applies `*.patch` in order |
 | `product.json` | Branding overlay merged over VSCodium's product.json: name, `applicationName` `desiide`, data folders `.desiide`/`.desiide-server`, `urlProtocol` `desiide`, bundle IDs, fresh Windows GUIDs, issue/docs links |
 | `resources/` | App icons (macOS `.icns`, Linux, server/web). Generated; don't edit by hand |
 | `src/` | File overlay on upstream `src/`: the editor watermark (letterpress) SVGs and the workbench product icon (`code-icon.svg`). Generated |
 | `icons/desiide-icon.svg` | Icon source (placeholder until open decision #3). `icons/generate.sh` regenerates `resources/` (macOS) |
 | `01-default-theme.patch` | Default color theme: Desiide Dark / Desiide Light |
+| `vscodium-version` | The VSCodium release this fork is based on (becomes the app version). Bump it with every upstream sync |
+| `02-default-layout.patch` | The built-in `desiide-ai` container opens in the secondary side bar, which is visible by default (empty windows too) |
+| `extensions/desiide-app/` | App-only built-in extension: the Cmd/Ctrl+L keybinding. No code |
 
 Branding that VSCodium already parameterizes (`APP_NAME`, `BINARY_NAME`, `ORG_NAME`, ...) is set by
 `scripts/build-editor.sh` in the Desiide repo, which is the supported way to build.

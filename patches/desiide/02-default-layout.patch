@@ -1,0 +1,63 @@
+Desiide: default layout
+Purpose: the Desiide panel is visible on first run, in the secondary side bar (right), where users
+  expect an AI panel. Users can still move, hide, or switch away from it, and that choice is kept.
+  1. viewsExtensionPoint.ts: the built-in desiide-ai's view container is placed in the secondary side
+     bar instead of the activity bar.
+  2. workbench.contribution.ts: `workbench.secondarySideBar.defaultVisibility` defaults to `visible`,
+     so the side bar also opens in empty windows. Upstream only opens it for new users when Copilot
+     chat is enabled, and VSCodium disables that (`chat.disableAIFeatures`).
+  3. layout.ts: a window with no saved secondary-side-bar state opens the Desiide container instead
+     of upstream's default (the hidden Copilot chat container, which shows as an empty panel).
+     `openViewContainer` waits for extensions to register, and falls back to upstream's default if
+     desiide-ai is disabled.
+Why not the extension API: desiide-ai's manifest contributes the container to `activitybar` so the
+  same build works in stock and older VS Code (Beta standalone channel, `engines ^1.100`), where the
+  layout must not change; only the built-in copy moves (a same-named third-party extension is
+  unaffected). Extension `configurationDefaults` load after the workbench layout is computed, and no
+  API picks the side bar's initial container, so neither can be done from the extension.
+Upstream files: src/vs/workbench/api/browser/viewsExtensionPoint.ts,
+  src/vs/workbench/browser/workbench.contribution.ts, src/vs/workbench/browser/layout.ts
+
+diff --git a/src/vs/workbench/api/browser/viewsExtensionPoint.ts b/src/vs/workbench/api/browser/viewsExtensionPoint.ts
+index 8337870..256e244 100644
+--- a/src/vs/workbench/api/browser/viewsExtensionPoint.ts
++++ b/src/vs/workbench/api/browser/viewsExtensionPoint.ts
+@@ -315,6 +315,11 @@ class ViewsExtensionHandler implements IWorkbenchContribution {
+ 				}
+ 				switch (key) {
+ 					case 'activitybar':
++						// Desiide: the built-in desiide-ai puts its container in the secondary side bar by default.
++						if (description.isBuiltin && description.name === 'desiide-ai') {
++							auxiliaryBarOrder = this.registerCustomViewContainers(value, description, auxiliaryBarOrder, existingViewContainers, ViewContainerLocation.AuxiliaryBar);
++							break;
++						}
+ 						activityBarOrder = this.registerCustomViewContainers(value, description, activityBarOrder, existingViewContainers, ViewContainerLocation.Sidebar);
+ 						break;
+ 					case 'panel':
+diff --git a/src/vs/workbench/browser/layout.ts b/src/vs/workbench/browser/layout.ts
+index 575291c..a19f89c 100644
+--- a/src/vs/workbench/browser/layout.ts
++++ b/src/vs/workbench/browser/layout.ts
+@@ -833,7 +833,8 @@ export abstract class Layout extends Disposable implements IWorkbenchLayoutServi
+ 
+ 		// Auxiliary View to restore
+ 		if (this.isVisible(Parts.AUXILIARYBAR_PART)) {
+-			const viewContainerToRestore = this.storageService.get(AuxiliaryBarPart.activeViewSettingsKey, StorageScope.WORKSPACE, this.viewDescriptorService.getDefaultViewContainer(ViewContainerLocation.AuxiliaryBar)?.id);
++			// Desiide: default to the Desiide container (it registers with the extensions; openViewContainer waits and falls back if it's disabled)
++			const viewContainerToRestore = this.storageService.get(AuxiliaryBarPart.activeViewSettingsKey, StorageScope.WORKSPACE, 'workbench.view.extension.desiide');
+ 			if (viewContainerToRestore) {
+ 				this.state.initialization.views.containerToRestore.auxiliaryBar = viewContainerToRestore;
+ 			} else {
+diff --git a/src/vs/workbench/browser/workbench.contribution.ts b/src/vs/workbench/browser/workbench.contribution.ts
+index 9953cb0..bdd848d 100644
+--- a/src/vs/workbench/browser/workbench.contribution.ts
++++ b/src/vs/workbench/browser/workbench.contribution.ts
+@@ -606,7 +606,7 @@ const registry = Registry.as<IConfigurationRegistry>(ConfigurationExtensions.Con
+ 			'workbench.secondarySideBar.defaultVisibility': {
+ 				'type': 'string',
+ 				'enum': ['hidden', 'visibleInWorkspace', 'visible', 'maximizedInWorkspace', 'maximized'],
+-				'default': 'visibleInWorkspace',
++				'default': 'visible', // Desiide: the Desiide panel shows in every new window, empty ones too
+ 				'description': localize('secondarySideBarDefaultVisibility', "Controls the default visibility of the secondary side bar in workspaces or empty windows that are opened for the first time. Can be overridden by the agent sessions startup editor setting."),
+ 				'enumDescriptions': [
+ 					localize('workbench.secondarySideBar.defaultVisibility.hidden', "The secondary side bar is hidden by default."),
