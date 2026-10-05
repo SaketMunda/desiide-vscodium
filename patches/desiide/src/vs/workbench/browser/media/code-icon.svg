@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="100 100 824 824">
-  <!-- Desiide app icon (placeholder, open decision #3). Palette: "Mixed breed" (teal + amber on slate). -->
+  <!-- Desiide app icon: a "D" whose stem is a text cursor, split by a stencil cut, with an amber Jev dot. Teal + amber on slate. -->
   <defs>
     <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#232A33"/>
@@ -8,12 +8,9 @@
   </defs>
   <rect x="100" y="100" width="824" height="824" rx="185" fill="url(#bg)"/>
   <rect x="100.5" y="100.5" width="823" height="823" rx="184.5" fill="none" stroke="#2BB3A3" stroke-opacity=".35" stroke-width="3"/>
-  <g transform="translate(512 522) scale(29) translate(-12 -12)" stroke-linecap="round" stroke-linejoin="round">
-    <path d="M5.2 9.2 3.5 4.5 8.2 6.4Z" fill="#2BB3A3" stroke="#2BB3A3" stroke-width="1"/>
-    <path d="M15.6 6.5C18.4 6 20.9 6.9 21.2 9.3c.2 1.9-.5 3.9-1.7 4.3-.9-1.2-1-2.9-.8-4.3Z" fill="#F2A33A" stroke="#F2A33A" stroke-width="1"/>
-    <path d="M5 9c0 6 3 10 7 10s7-4 7-10c-1.5-2-4-3-7-3S6.5 7 5 9Z" fill="none" stroke="#E4E8EC" stroke-width="1.35"/>
-    <circle cx="9.5" cy="11.6" r=".85" fill="#E4E8EC"/>
-    <circle cx="14.5" cy="11.6" r=".85" fill="#E4E8EC"/>
-    <path d="M10.9 14.9h2.2l-1.1 1.3Z" fill="#F2A33A" stroke="#F2A33A" stroke-width=".5"/>
+  <g transform="translate(-13 0)">
+    <rect x="318" y="300" width="92" height="424" rx="20" fill="#2BB3A3"/>
+    <path d="M446 346H520A166 166 0 0 1 520 678H446" fill="none" stroke="#2BB3A3" stroke-width="92"/>
+    <circle cx="548" cy="512" r="42" fill="#F2A33A"/>
   </g>
 </svg>
