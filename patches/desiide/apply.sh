@@ -36,7 +36,17 @@ echo "${jsonTmp}" > product.json && unset jsonTmp
 # desiide-app: app-only defaults (settings, Cmd/Ctrl+L). Plain local extension, no code.
 cp -R "${DESIIDE_PATCHES}/extensions/." extensions/
 
-# 4. Source patches, in name order.
+# 4. Linux .deb: never register Microsoft's apt repository (privacy rule). Upstream's postinst adds
+# packages.microsoft.com for every package name except code-oss, and VSCodium (after this hook) only
+# exempts codium, so `desiide` would get it. Make the check never match; fail if upstream reworded it.
+DESIIDE_POSTINST="resources/linux/debian/postinst.template"
+replace 's|"@@NAME@@" != "code-oss"|"@@NAME@@" = "desiide-never-adds-microsoft-repo"|' "${DESIIDE_POSTINST}"
+if ! grep -q 'desiide-never-adds-microsoft-repo' "${DESIIDE_POSTINST}"; then
+  echo "${DESIIDE_POSTINST}: Microsoft apt-repo guard not found; re-check it before shipping a .deb" >&2
+  exit 1
+fi
+
+# 5. Source patches, in name order.
 for file in "${DESIIDE_PATCHES}"/*.patch; do
   if [[ -f "${file}" ]]; then
     apply_patch "${file}"

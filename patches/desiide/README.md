@@ -6,7 +6,7 @@ working directory set to the upstream `vscode/` checkout.
 
 | File | What it does |
 |---|---|
-| `apply.sh` | Hook body: merges `product.json`, copies `resources/` and `src/`, adds the built-in extensions (`desiide-ai` from its `.vsix`, `desiide-app`), applies `*.patch` in order |
+| `apply.sh` | Hook body: merges `product.json`, copies `resources/` and `src/`, adds the built-in extensions (`desiide-ai` from its `.vsix`, `desiide-app`), stops the Linux `.deb` from registering Microsoft's apt repo, applies `*.patch` in order |
 | `product.json` | Branding overlay merged over VSCodium's product.json: name, `applicationName` `desiide`, data folders `.desiide`/`.desiide-server`, `urlProtocol` `desiide`, bundle IDs, fresh Windows GUIDs, issue/docs links |
 | `resources/` | App icons (macOS `.icns`, Linux, server/web). Generated; don't edit by hand |
 | `src/` | File overlay on upstream `src/`: the editor watermark (letterpress) SVGs and the workbench product icon (`code-icon.svg`). Generated |
